@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  import router from \"page\";\n  import routes from \"./routes.js\";\n\n  let page;\n  let params;\n  let user = true;\n\n  // Iterate through the routes\n  routes.forEach(route => {\n    router(\n      route.path,\n\n      (ctx, next) => {\n        params = ctx.params;\n        next();\n      },\n\n      () => {\n        if (route.auth && !user) {\n          router.redirect(\"/login\");\n        } else {\n          page = route.component;\n        }\n      }\n    );\n  });\n\n  // Start the router\n  router.start();\n</script>\n\n<header>\n  <nav>\n    <a href=\"/\">Home</a>\n    <a href=\"/blog\">Blog</a>\n    <a href=\"/private\">Secret Page</a>\n  </nav>\n</header>\n\n<main>\n <svelte:component this={page} params={params} />\n</main>\n\n<style>\n  main,\n  header {\n    padding: 20px;\n    font-family: \"Segoe UI\", Tahoma, Geneva, Verdana, sans-serif;\n  }\n\n  nav a {\n    margin-right: 10px;\n    text-decoration: none;\n  }\n</style>"
+  ],
+  "names": [],
+  "mappings": "AA6CE,kCAAI,CACJ,MAAM,8BAAC,CAAC,AACN,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,UAAU,CAAC,CAAC,MAAM,CAAC,CAAC,MAAM,CAAC,CAAC,OAAO,CAAC,CAAC,UAAU,AAC9D,CAAC,AAED,kBAAG,CAAC,CAAC,eAAC,CAAC,AACL,YAAY,CAAE,IAAI,CAClB,eAAe,CAAE,IAAI,AACvB,CAAC"
+}
